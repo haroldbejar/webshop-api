@@ -6,17 +6,30 @@ using Repository.Repositories;
 
 namespace Services.Services
 {
-    public class ProductService : IProductService
+    public class ProductService : IProductService, IValidatorService<OrderDetail>
     {
         private readonly IMapper _mapper;
         private readonly IRepository<Product> _repository;
         private readonly IProductRepository _productRepository;
+        private readonly IOrderDetailRepository _orderDetailRepository;
 
-        public ProductService(IMapper mapper, IRepository<Product> repository, IProductRepository productRepository)
+        public ProductService(
+            IMapper mapper, 
+            IRepository<Product> repository, 
+            IProductRepository productRepository,
+            IOrderDetailRepository orderDetailRepository)
         {
             _mapper = mapper;
             _repository = repository;
             _productRepository = productRepository;
+            _orderDetailRepository = orderDetailRepository;
+        }
+        
+        public async Task<bool> EntityValidationAsync(int id) 
+        {
+            var orderDetail = await _orderDetailRepository.GetDetailsByProductId(id);
+            if (orderDetail.Count() == 0) return false;
+            return true;
         }
 
         public async Task<int> CountProductAsync()
