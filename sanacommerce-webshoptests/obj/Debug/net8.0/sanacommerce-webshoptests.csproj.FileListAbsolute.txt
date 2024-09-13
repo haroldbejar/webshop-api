@@ -102,3 +102,4 @@ C:\Users\harol\OneDrive\Escritorio\SanaCommerce2024\sanacommerce-webshopsln\sana
 C:\Users\harol\OneDrive\Escritorio\SanaCommerce2024\sanacommerce-webshopsln\sanacommerce-webshoptests\obj\Debug\net8.0\sanacommerce-webshoptests.pdb
 C:\Users\harol\OneDrive\Escritorio\SanaCommerce2024\sanacommerce-webshopsln\sanacommerce-webshoptests\obj\Debug\net8.0\sanacommerce-webshoptests.genruntimeconfig.cache
 C:\Users\harol\OneDrive\Escritorio\SanaCommerce2024\sanacommerce-webshopsln\sanacommerce-webshoptests\obj\Debug\net8.0\ref\sanacommerce-webshoptests.dll
+c:\Users\harol\OneDrive\Escritorio\SanaCommerce2024\sanacommerce-webshopsln\sanacommerce-webshoptests\obj\Debug\net8.0\sanacommerce-webshoptests.sourcelink.json
