@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Domain.Models;
+using Microsoft.Extensions.DependencyInjection;
 using Services.Services;
 
 namespace Services
@@ -13,6 +14,7 @@ namespace Services
             services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<IProductCategoryService, ProductCategoryService>();
             services.AddScoped<IOrderDetailService, OrderDetailService>();
+            services.AddScoped<IValidatorService<OrderDetail>, ProductService>();
 
             return services;
         }

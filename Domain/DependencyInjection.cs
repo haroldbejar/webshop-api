@@ -32,7 +32,6 @@ namespace Domain
 
         public static IServiceCollection AddBuilder(this IServiceCollection services)
         {
-            services.AddTransient(typeof(BaseBuilder<>));
             services.AddTransient<ProductBuilder>(); 
             services.AddTransient<CategoryBuilder>();
             services.AddTransient<CustomerBuilder>();
