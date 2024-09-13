@@ -51,6 +51,14 @@ namespace Repository.Repositories
             await Save();
         }
 
-        public async Task Save() { await _context.SaveChangesAsync(); }
+        public async Task Save() 
+        { 
+            await _context.SaveChangesAsync(); 
+        }
+
+        public async Task<int> CountAsync()
+        {
+            return await _dbSet.CountAsync();
+        }
     }
 }
