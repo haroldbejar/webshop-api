@@ -40,3 +40,5 @@
 
 # Ignore auto-generated files from dotnet watch
 .dotnet/
+
+.fake
