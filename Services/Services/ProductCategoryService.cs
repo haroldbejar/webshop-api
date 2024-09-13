@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
 using Domain.Builder;
 using Domain.DTOs;
@@ -73,7 +69,7 @@ namespace Services.Services
                 .WithCategoryId(productCategory.CategoryId)
                 .WithCategory(productCategory.Category)
                 .Build();
-                
+
             await _repository.AddAsync(productCategoryBuilder);
         }
 
