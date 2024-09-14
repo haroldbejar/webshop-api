@@ -6,7 +6,7 @@ using Repository.Repositories;
 
 namespace Services.Services
 {
-    public class CategoryService : ICategoryService
+    public class CategoryService : ICategoryService, IValidatorService<ProductCategory>
     {
          private readonly IMapper _mapper;
         private readonly IRepository<Category> _repository;
@@ -18,6 +18,15 @@ namespace Services.Services
         {
             _mapper = mapper;
             _repository = repository;
+        }
+
+        public async Task<bool> EntityValidationAsync(int id)
+        {
+            int pageNumber = 1;
+            int pageSize = 10;
+            var productCategory = await _productCategoryRepository.GetByCategoryId(id, pageNumber, pageSize);
+            if (productCategory.Count > 0) return true;
+            return false;
         }
 
         public async Task<int> CountCategoryAsync()

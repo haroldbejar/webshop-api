@@ -6,17 +6,30 @@ using Repository.Repositories;
 
 namespace Services.Services
 {
-    public class OrderService : IOrderService
+    public class OrderService : IOrderService, IValidatorService<OrderDetail>
     {
         private readonly IMapper _mapper;
         private readonly IRepository<Order> _repository;
         private readonly IOrderRepository _orderRepository;
+        private readonly IOrderDetailRepository _orderDetailRepository;
 
-        public OrderService(IMapper mapper, IRepository<Order> repository, IOrderRepository orderRepository)
+        public OrderService(
+            IMapper mapper, 
+            IRepository<Order> repository, 
+            IOrderRepository orderRepository,
+            IOrderDetailRepository orderDetailRepository)
         {
             _mapper = mapper;
             _repository = repository;
             _orderRepository = orderRepository;
+            _orderDetailRepository = orderDetailRepository;
+        }
+
+        public async Task<bool> EntityValidationAsync(int id)
+        {
+            var orderDetail = await _orderDetailRepository.GetDetailsByOrderId(id);
+            if (orderDetail.Count() == 0) return false;
+            return true;
         }
 
         public async Task<int> CountOrdersAsync()
