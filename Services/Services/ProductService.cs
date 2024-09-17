@@ -66,6 +66,7 @@ namespace Services.Services
                 .WithPrice(producto.Price)
                 .WithStock(producto.Stock)
                 .WithImageUrl(producto.ImageUrl)
+                .WithDescription(producto.Description)
                 .Build();
                 
             await _repository.AddAsync(productBuilder);
@@ -81,6 +82,7 @@ namespace Services.Services
                 .WithPrice(producto.Price)
                 .WithStock(producto.Stock)
                 .WithImageUrl(producto.ImageUrl)
+                .WithDescription(producto.Description)
                 .Build();
 
             await _productRepository.InsertProductWithCategory(productBuilder, categoryIds);
@@ -95,6 +97,7 @@ namespace Services.Services
             existingProduct.Price = productDto.Price;
             existingProduct.Stock = productDto.Stock;
             existingProduct.ImageUrl = productDto.ImageUrl;
+            existingProduct.Description = productDto.Description;
 
             await _repository.UpdateAsync(existingProduct);
         }

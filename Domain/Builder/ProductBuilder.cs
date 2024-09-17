@@ -10,5 +10,6 @@ namespace Domain.Builder
         public ProductBuilder WithPrice(decimal price) { _entity.Price = price; return this; }
         public ProductBuilder WithStock(int stock) { _entity.Stock = stock; return this; }
         public ProductBuilder WithImageUrl(string imageUrl) { _entity.ImageUrl = imageUrl; return this; }
+        public ProductBuilder WithDescription(string description) { _entity.Description = description; return this; }
     }
 }

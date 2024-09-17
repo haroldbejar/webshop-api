@@ -18,12 +18,15 @@ namespace Repository.Repositories
                         select new ProductCategoryDTO
                         {
                             ProductId = pc.ProductId,
+                            ProductName = p.ProductName,
+                            ProductCode = p.ProductCode,
                             Title = $"{p.ProductCode ?? ""} {p.ProductName ?? ""}",
                             Price = p.Price,
                             Stock = p.Stock,
                             ImageUrl = p.ImageUrl,
                             CategoryId = pc.CategoryId,
                             Name = c.Name,
+                            Description = p.Description
                         };
             return await query
                 .Skip((pageNumber - 1) * pageSize)
@@ -40,12 +43,15 @@ namespace Repository.Repositories
                         select new ProductCategoryDTO
                         {
                             ProductId = pc.ProductId,
+                            ProductName = p.ProductName,
+                            ProductCode = p.ProductCode,
                             Title = $"{p.ProductCode ?? ""} {p.ProductName ?? ""}",
                             Price = p.Price,
                             Stock = p.Stock,
                             ImageUrl = p.ImageUrl,
                             CategoryId = pc.CategoryId,
                             Name = c.Name,
+                            Description = p.Description
                         };
             return await query
                 .Skip((pageNumber - 1) * pageSize)
