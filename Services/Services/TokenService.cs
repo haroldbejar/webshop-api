@@ -15,7 +15,7 @@ namespace Services.Services
         {
             _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["TokenKey"]));
         }
-        public string CreateToken(RegisterDTO user)
+        public string CreateToken(IUser user)
         {
             var claims = new List<Claim>
             {

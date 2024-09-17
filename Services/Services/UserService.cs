@@ -57,6 +57,28 @@ namespace Services.Services
             };
         }
 
+        public async Task RegisterCustomer(RegisterCustomerDTO registerCustomerDTO)
+        {
+            using var hmac = new HMACSHA512();
+
+            var user = new User
+            {
+                UserName = registerCustomerDTO.UserName,
+                PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerCustomerDTO.Password)),
+                PasswordSalt = hmac.Key
+            };
+
+            await _repository.AddAsync(user);
+
+            var customer = new Customer
+            {
+                Name = registerCustomerDTO.Name,
+                Email = registerCustomerDTO.Email,
+                Address = registerCustomerDTO.Address,
+                UserId = user.Id
+            };
+        }
+
         public async Task<bool> ValidateUserExist(string userName)
         {
              var existingUser = await _userRepository.GetUserByUserName(userName);

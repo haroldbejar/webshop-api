@@ -36,7 +36,7 @@ namespace WebApp.Controllers
         public async Task<ActionResult> Register(RegisterDTO registerUser) 
         {
             var existingUser = await _service.ValidateUserExist(registerUser.UserName);
-            if (existingUser) return BadRequest("User not found!");
+            if (existingUser) return BadRequest("User already exists!");
             
             await _service.Register(registerUser);
 
@@ -44,6 +44,29 @@ namespace WebApp.Controllers
             { 
                 UserName = registerUser.UserName,
                 Token = _tokenService.CreateToken(registerUser)
+            };
+
+            return Ok(user);
+        }
+
+        /// <summary>
+        /// Register user
+        /// </summary>
+        /// <param name="registerCustomerDTO"></param>
+        /// <returns></returns>
+        [HttpPost("registerCustomer")]
+
+        public async Task<ActionResult> RegisterCustomer(RegisterCustomerDTO registerCustomerDTO) 
+        {
+            var existingUser = await _service.ValidateUserExist(registerCustomerDTO.UserName);
+            if (existingUser) return BadRequest("User already exists!");
+
+            await _service.RegisterCustomer(registerCustomerDTO);
+
+            var user = new LogedUserDTO
+            {
+                UserName = registerCustomerDTO.UserName,
+                Token = _tokenService.CreateToken(registerCustomerDTO)
             };
 
             return Ok(user);

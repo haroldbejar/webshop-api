@@ -1,6 +1,6 @@
 ﻿namespace Domain.DTOs
 {
-    public class RegisterDTO
+    public class RegisterDTO : IUser
     {
         public int Id { get; set; }
         public string UserName { get; set; }

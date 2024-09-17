@@ -4,6 +4,6 @@ namespace Services.Services
 {
     public interface ITokenService
     {
-        string CreateToken(RegisterDTO user);
+        string CreateToken(IUser user);
     }
 }
