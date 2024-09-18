@@ -78,6 +78,27 @@ namespace WebApp.Controllers
         }
 
         /// <summary>
+        /// Get Customer By CustomerId
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>A customer filter by CustomerId</returns>
+        [HttpGet("getbyuserid/{id:int}")]
+        public async Task<ActionResult> GetCustomerByUserId(int id)
+        {
+            try
+            {
+                var result = await _customerService.GetCustomerByUserId(id);
+                if (result == null) return BadRequest("The customer does not exists!");
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        /// <summary>
         /// Create Customer
         /// </summary>
         /// <param name="customerDTO"></param>

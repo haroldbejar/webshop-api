@@ -48,7 +48,7 @@ namespace Services.Services
                 UserName = registerDTO.UserName,
                 PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDTO.Password)),
                 PasswordSalt = hmac.Key,
-                Rol = registerDTO.Rol
+                Role = registerDTO.Role
             };
 
             await _repository.AddAsync(user);
@@ -68,7 +68,7 @@ namespace Services.Services
                 UserName = registerCustomerDTO.UserName,
                 PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerCustomerDTO.Password)),
                 PasswordSalt = hmac.Key,
-                Rol = registerCustomerDTO.Rol
+                Role = registerCustomerDTO.Role
             };
 
             await _repository.AddAsync(user);

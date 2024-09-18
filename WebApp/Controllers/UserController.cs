@@ -80,25 +80,33 @@ namespace WebApp.Controllers
         [HttpPost("login")]
         public async Task<ActionResult> Login(RegisterDTO registerUser) 
         {
-            var existingUser = await _service.GetUserByUserName(registerUser.UserName);
-            if (existingUser == null) return Unauthorized();
-
-            using var hmac = new HMACSHA512(existingUser.PasswordSalt);
-            var computeHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerUser.Password));
-
-            for (int i = 0; i < computeHash.Length; i++) 
+            try 
             {
-                if (computeHash[i] != existingUser.PasswordHash[i]) return Unauthorized();
+                var existingUser = await _service.GetUserByUserName(registerUser.UserName);
+                if (existingUser == null) return Unauthorized();
+
+                using var hmac = new HMACSHA512(existingUser.PasswordSalt);
+                var computeHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerUser.Password));
+
+                for (int i = 0; i < computeHash.Length; i++)
+                {
+                    if (computeHash[i] != existingUser.PasswordHash[i]) return Unauthorized();
+                }
+
+                var user = new LogedUserDTO
+                {
+                    Id = existingUser.Id,
+                    UserName = existingUser.UserName,
+                    Token = _tokenService.CreateToken(existingUser)
+                };
+
+                return Ok(user);
             }
-
-            var user = new LogedUserDTO
+            catch (Exception ex)
             {
-                Id = registerUser.Id,
-                UserName = registerUser.UserName,
-                Token = _tokenService.CreateToken(registerUser)
-            };
-
-            return Ok(user);
+                return StatusCode(500, "Server error: " + ex.Message);
+            }
+            
         }
     }
 }

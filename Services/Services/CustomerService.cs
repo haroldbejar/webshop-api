@@ -10,12 +10,14 @@ namespace Services.Services
     {
         private readonly IMapper _mapper;
         private readonly IRepository<Customer> _repository;
+        private readonly ICustomerRepository _customerRepository;
          private readonly IOrderRepository _orderRepository;
 
-        public CustomerService(IMapper mapper, IRepository<Customer> repository)
+        public CustomerService(IMapper mapper, IRepository<Customer> repository, ICustomerRepository customerRepository)
         {
             _mapper = mapper;
             _repository = repository;
+            _customerRepository = customerRepository;
         }
 
         public async Task<bool> EntityValidationAsync(int id)
@@ -46,6 +48,12 @@ namespace Services.Services
         public async Task<CustomerDTO> GetByCustomerIdAsync(int id)
         {
             var customer = await _repository.GetByIdAsync(id);
+            return _mapper.Map<CustomerDTO>(customer);
+        }
+
+        public async Task<CustomerDTO> GetCustomerByUserId(int userId)
+        {
+            var customer = await _customerRepository.GetCustomerByUserId(userId);
             return _mapper.Map<CustomerDTO>(customer);
         }
 
