@@ -34,7 +34,8 @@ namespace Services.Services
                 Id = user.Id,
                 UserName = user.UserName,
                 PasswordHash = user.PasswordHash,
-                PasswordSalt = user.PasswordSalt
+                PasswordSalt = user.PasswordSalt,
+                Role = user.Role
             };
         }
 
@@ -46,7 +47,8 @@ namespace Services.Services
             {
                 UserName = registerDTO.UserName,
                 PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDTO.Password)),
-                PasswordSalt = hmac.Key
+                PasswordSalt = hmac.Key,
+                Rol = registerDTO.Rol
             };
 
             await _repository.AddAsync(user);
@@ -65,7 +67,8 @@ namespace Services.Services
             {
                 UserName = registerCustomerDTO.UserName,
                 PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerCustomerDTO.Password)),
-                PasswordSalt = hmac.Key
+                PasswordSalt = hmac.Key,
+                Rol = registerCustomerDTO.Rol
             };
 
             await _repository.AddAsync(user);

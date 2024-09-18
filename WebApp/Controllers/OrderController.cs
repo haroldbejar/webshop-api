@@ -1,5 +1,6 @@
 using Domain.DTOs;
 using Domain.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Services.Services;
 
@@ -100,6 +101,7 @@ namespace WebApp.Controllers
         /// </summary>
         /// <param name="orderDTO"></param>
         /// <returns></returns>
+        [Authorize(Roles = "Customer")]
         [HttpPost]
         public async Task<ActionResult> CreateOrderAsync(OrderDTO orderDTO)
         {
@@ -119,6 +121,7 @@ namespace WebApp.Controllers
         /// </summary>
         /// <param name="orderDetials"></param>
         /// <returns></returns>
+        [Authorize(Roles = "Customer")]
         [HttpPost("createdetails")]
         public async Task<ActionResult> CreateOrderDetailAsync(List<OrderDetailsViewModel> orderDetials)
         {
