@@ -62,13 +62,12 @@ namespace Services.Services
             return _mapper.Map<List<OrderDTO>>(orders);
         }
 
-        public async Task InsertOrderAndDetails(List<OrderDetailsViewModel> orderDetails)
+        public async Task<OrderDTO> InsertOrderAsync(OrderDTO orderDTO)
         {
-            await _orderRepository.InsertOrderWithDetails(orderDetails);
-        }
-
-        public async Task InsertOrderAsync(OrderDTO orderDTO)
-        {
+            if (orderDTO == null || orderDTO.OrderDetails == null || !orderDTO.OrderDetails.Any())
+            {
+                throw new ArgumentException("Order or OrderDetails cannot be null");
+            }
             var order = _mapper.Map<Order>(orderDTO);
             var orderBuilder = new OrderBuilder()
                 .WithCustomerId(order.CustomerId)
@@ -76,7 +75,20 @@ namespace Services.Services
                 .WithDescription(order.Description)
                 .WithOrderDate(order.OrderDate)
                 .Build();
-            await _repository.AddAsync(orderBuilder);
+
+            var createdOrder = await _orderRepository.InsertOrder(orderBuilder);
+            // await _repository.AddAsync(orderBuilder);
+
+            foreach ( var detail in order.OrderDetails) 
+            {
+                detail.OrderId = createdOrder.OrderId;
+            }
+
+            await _orderRepository.InsertOrderDetails(order.OrderDetails);
+
+            var createdOrderDTO = _mapper.Map<OrderDTO>(createdOrder);
+
+            return createdOrderDTO;
                 
         }
 

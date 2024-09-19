@@ -119,16 +119,16 @@ namespace WebApp.Controllers
         /// <summary>
         /// Create Order and detials 
         /// </summary>
-        /// <param name="orderDetials"></param>
+        /// <param name="orderDTO"></param>
         /// <returns></returns>
-        [Authorize(Roles = "Customer")]
+        //[Authorize(Roles = "Customer")]
         [HttpPost("createdetails")]
-        public async Task<ActionResult> CreateOrderDetailAsync(List<OrderDetailsViewModel> orderDetials)
+        public async Task<ActionResult> CreateOrderDetailAsync([FromBody] OrderDTO orderDTO)
         {
             try
             {
-                await _orderService.InsertOrderAndDetails(orderDetials);
-                return Ok(orderDetials);
+                var createdOrder = await _orderService.InsertOrderAsync(orderDTO);
+                return Ok(createdOrder);
             } catch(Exception ex)
             {
                 return BadRequest(ex.Message);
